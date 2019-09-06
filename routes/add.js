@@ -9,10 +9,28 @@ router.get('/',(req, res) => {
   });
 });
 
+let x = `https://4.bp.blogspot.com/-Ln4-lygomaA/W32QjXN9QFI/AAAAAAAAHrw/bcgryg588rk8awCYdiAiaWcKoq4g7sONACLcBGAs/s1600/nodejs-512.png
+https://miro.medium.com/max/894/1*DOJsfgBEBqzudQeakxGBbw.jpeg
+https://www.primefaces.org/presskit/primereact-logo.png
+`
+
+
+
 router.post('/',async (req, res) => {
-  const course = new Course(req.body.title, req.body.price, req.body.img);
-  await course.save();
-  res.redirect('courses');
+  //const course = new Course(req.body.title, req.body.price, req.body.img);
+  const course = new Course ({
+    title: req.body.title,
+    price : req.body.price,
+    img: req.body.img,
+    userId: req.user._id
+  });
+  try {
+    await course.save();
+    res.redirect('courses');
+
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 module.exports = router;

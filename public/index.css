@@ -31,3 +31,6 @@
     align-items: center;
     justify-content: space-between;
 }
+.course-form {
+    margin: 0 0 2rem 0;
+}
