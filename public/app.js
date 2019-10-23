@@ -31,15 +31,19 @@ if ($card) {
   $card.addEventListener('click', event => {
     if (event.target.classList.contains('js-remove')) {
       const id = event.target.dataset.id;
+      const csrf = event.target.dataset.csrf;
 
 
       fetch(`/card/remove/${id}`, {
-        method: 'delete'
+        method: 'delete',
+        headers: {
+          'X-XSRF-TOKEN': csrf
+          }
       })
         .then(res => res.json())
         .then(card => {
           if (card.courses.length) {
-            const html = card.courses.map( c => {
+            const html = card.courses.map(c => {
               return `
                 <tr>
                     <td>${c.title}</td>
@@ -57,7 +61,7 @@ if ($card) {
             $card.innerHTML = `<p>Корзина пуста</p>`;
           }
         })
-        .catch(err=>console.log(err))
+        .catch(err => console.log(err))
     }
   })
 }

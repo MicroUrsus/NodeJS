@@ -1,8 +1,9 @@
 const {Router} = require('express');
 const Course = require('../models/course');
+const auth = require('../middleware/auth');
 const router = Router();
 
-router.get('/',(req, res) => {
+router.get('/', auth, (req, res) => {
   res.render('add', {
     title: 'Добавление курсов',
     isAdd: true
@@ -16,7 +17,7 @@ https://www.primefaces.org/presskit/primereact-logo.png
 
 
 
-router.post('/',async (req, res) => {
+router.post('/', auth, async (req, res) => {
   //const course = new Course(req.body.title, req.body.price, req.body.img);
   const course = new Course ({
     title: req.body.title,
